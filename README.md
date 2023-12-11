@@ -2,7 +2,7 @@
 
 ## About
 
-Cloud.io allows users to quickly test/run applications and services while simultaneously providing a platform to share vulnerable machines.
+Cloud.io allows users to quickly test/run applications and services while simultaneously providing a platform for users to share vulnerable machines.
 
 Made using **NextJS** + **Typescript** + **Prisma ORM** + **Clerk** + **Tailwindcss** + **Postgresql**. <br/>
 Hosted on **Vercel**, **Google Cloud Platform**, **Digital Ocean**
