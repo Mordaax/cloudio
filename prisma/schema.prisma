@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model CloudResource {
+  id          String      @id @default(uuid())
+  
+  userId      String
+  createdAt   DateTime @default(now())
+  running     Boolean  @default(false)
+  public      Boolean  @default(false)
+  name        String
+  description String   @default("")
+  content     String   @default("[]")
+
+  visits   Int @default(0)
+  logcount Int @default(0)
+
+  zone      String @default("-")
+  subnet    String @default("-")
+  operatingsystem String @default("-")
+  machinetype String @default("-")
+  disksize String @default("-")
+  privatekey String @default("-")
+  publicId    String      @unique @default(uuid())
+
+  ipaddress String     @unique @default("-")
+  internalipaddress String @default("-")
+  LogEntrys LogEntry[]
+
+  @@unique([name, userId])
+}
+
+model LogEntry {
+  id              Int           @id @default(autoincrement())
+  createdAt       DateTime      @default(now())
+  cloudresourceId String
+  cloudresource   CloudResource @relation(fields: [cloudresourceId], references: [id])
+
+  content String
+}
